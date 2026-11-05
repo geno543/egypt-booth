@@ -1,5 +1,7 @@
 # Egypt booth: Egypt Passport game
 
+**Play it:** https://geno543.github.io/egypt-booth/ · **Guide:** https://geno543.github.io/egypt-booth/guide.html · **QR poster:** https://geno543.github.io/egypt-booth/poster.html
+
 A bilingual (English / 中文) game for the Egypt booth at the university culture festival.
 Visitors scan a QR code, open an "Egypt passport", travel down the Nile and play five 20-second
 mini-games. Each win stamps their passport. Five stamps unlock a gift ticket they show at the booth.
