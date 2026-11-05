@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Egypt Passport: a game from the Egypt booth</title>
+  <meta name="description" content="Travel the Nile, play five 20-second mini-games, collect five passport stamps and win a gift at the Egypt booth.">
+  <meta name="theme-color" content="#0B0E1C">
+  <meta property="og:title" content="Egypt Passport">
+  <meta property="og:description" content="Five stops along the Nile. Five mini-games. One gift at the Egypt booth.">
+  <meta property="og:image" content="https://geno543.github.io/egypt-booth/assets/img/hero-fanous.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/game.css">
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"><img src="assets/img/hero-fanous.jpg" alt=""></div>
+
+  <main class="app" id="app">
+    <header class="bar" id="bar" hidden></header>
+    <section class="screen" id="screen" aria-live="polite"></section>
+    <div class="ovl" id="ovl" hidden></div>
+  </main>
+
+  <!-- rubber-stamp ink texture for passport stamps -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <filter id="inkRough" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="grain"/>
+        <feDisplacementMap in="SourceGraphic" in2="grain" scale="2.4" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+        <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="11" result="blot"/>
+        <feColorMatrix in="blot" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.4 0 0 0 -0.5" result="mask"/>
+        <feComposite in="rough" in2="mask" operator="in"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <noscript><p style="padding:24px;color:#fff">This game needs JavaScript. You can still read the <a href="guide.html" style="color:#D9B45A">Egypt guide</a>.</p></noscript>
+
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/game-content.js"></script>
+  <script src="assets/js/minigames.js"></script>
+  <script src="assets/js/game.js"></script>
+</body>
+</html>

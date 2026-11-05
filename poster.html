@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QR poster | Egypt booth</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/poster.css">
+</head>
+<body>
+
+  <!-- Screen-only controls. Hidden when printing. -->
+  <form class="bar" id="bar" onsubmit="return false">
+    <h1>QR poster for the booth</h1>
+    <div class="field">
+      <label for="url">Website address (your public link)</label>
+      <input id="url" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://your-site.netlify.app">
+    </div>
+    <div class="field">
+      <label for="lang">Language</label>
+      <select id="lang">
+        <option value="">Phone's language</option>
+        <option value="zh">Always 中文</option>
+        <option value="en">Always English</option>
+      </select>
+    </div>
+    <button type="button" class="btn" id="print">
+      <svg class="icon" aria-hidden="true"><use href="#i-arrowUp"></use></svg>
+      Print / Save as PDF
+    </button>
+    <p class="bar__status">
+      <span>QR code links to:</span> <code id="finalUrl">(type your address)</code>
+      <span class="warn" id="warn" hidden></span>
+    </p>
+  </form>
+
+  <main class="stage">
+    <div class="fit" id="fit">
+      <article class="poster" id="poster" aria-label="Egypt booth poster">
+
+        <header class="p-photo">
+          <img src="assets/img/hero-fanous.jpg" alt="Ramadan lanterns over Al-Moez Street, Cairo">
+          <div class="p-top">
+            <div class="p-brand">
+              <svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>
+              <b>Egypt</b><span class="ar" lang="ar">مصر</span>
+            </div>
+            <div class="p-event" id="pEvent">International Culture Festival<span>国际文化节</span></div>
+          </div>
+          <div class="p-welcome">
+            <span class="ar" lang="ar">أهلاً</span>
+            <p>Ahlan. Welcome to Egypt.<span>欢迎来到埃及。</span></p>
+          </div>
+        </header>
+
+        <section class="p-body">
+          <div>
+            <h2 class="p-title">Play. Collect 5 stamps.<br><em>Win a gift.</em></h2>
+            <p class="p-zh" lang="zh-Hans">玩游戏，集齐5个印章，赢礼物。</p>
+          </div>
+
+          <div class="p-main">
+            <div class="p-card">
+              <span class="p-scan">Scan me · 扫我</span>
+              <div class="p-qr" id="qr"></div>
+              <p class="p-url" id="pUrl"></p>
+            </div>
+
+            <div>
+              <ol class="p-steps">
+                <li>
+                  <span class="p-num">1</span>
+                  <div><b>Scan with your phone</b><span lang="zh-Hans">用手机扫码</span></div>
+                </li>
+                <li>
+                  <span class="p-num">2</span>
+                  <div><b>Play five 20-second <span style="white-space:nowrap">mini-games</span> along the Nile</b><span lang="zh-Hans">沿尼罗河玩五个20秒小游戏</span></div>
+                </li>
+                <li>
+                  <span class="p-num">3</span>
+                  <div><b>Show your ticket at the booth</b><span lang="zh-Hans">到展位出示兑换券</span></div>
+                </li>
+                <li>
+                  <div class="p-gift" style="grid-column: 1 / -1">
+                    <svg class="icon" aria-hidden="true"><use href="#i-gift"></use></svg>
+                    <p>Everyone who finishes gets a gift.<span lang="zh-Hans">完成即可领取礼物，每人一份。</span></p>
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <footer class="p-foot">
+          <div class="p-foot__l">
+            <span class="ar" lang="ar">مصر</span>
+            <div id="pBooth"><b>Egypt booth</b><span>埃及展位</span></div>
+          </div>
+          <div class="p-foot__r">
+            <b>Come and say ahlan</b>
+            <span lang="zh-Hans">欢迎来跟我们说声 ahlan</span>
+          </div>
+        </footer>
+
+      </article>
+    </div>
+  </main>
+
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/qr.js"></script>
+  <script>
+  (function () {
+    'use strict';
+    var cfg = (window.EG && window.EG.config) || {};
+    var $ = function (id) { return document.getElementById(id); };
+    var urlIn = $('url'), langIn = $('lang');
+
+    /* booth and event names come from content.js, so the poster always matches the site */
+    function setPair(el, pair, fallbackEn, fallbackZh) {
+      var en = (pair && pair.en) || fallbackEn, zh = (pair && pair.zh) || fallbackZh;
+      el.textContent = '';
+      el.appendChild(document.createTextNode(en));
+      var s = document.createElement('span'); s.setAttribute('lang', 'zh-Hans'); s.textContent = zh;
+      el.appendChild(s);
+    }
+    setPair($('pEvent'), cfg.event, 'International Culture Festival', '国际文化节');
+    var booth = $('pBooth');
+    booth.textContent = '';
+    var b = document.createElement('b'); b.textContent = (cfg.booth && cfg.booth.en) || 'Egypt booth';
+    var s = document.createElement('span'); s.setAttribute('lang', 'zh-Hans'); s.textContent = (cfg.booth && cfg.booth.zh) || '埃及展位';
+    booth.appendChild(b); booth.appendChild(s);
+
+    /* restore settings: ?url=...&lang=zh, else last used, else this site's own address */
+    var q = new URLSearchParams(location.search);
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem('eg.poster') || '{}') || {}; } catch (e) { saved = {}; }
+    var PUBLIC_URL = 'https://geno543.github.io/egypt-booth/'; /* the GitHub Pages address of the site */
+    var here = /^https?:$/.test(location.protocol) ? location.origin + location.pathname.replace(/poster\.html$/, '') : '';
+    if (here && isLocal(location.hostname)) here = '';
+    urlIn.value = q.get('url') || saved.url || here || PUBLIC_URL;
+    langIn.value = q.get('lang') != null ? q.get('lang') : (saved.lang || '');
+
+    function isLocal(host) {
+      return /^(localhost|127\.\d+\.\d+\.\d+|0\.0\.0\.0|\[::1\]|::1)$/i.test(host) || /\.local(host)?$/i.test(host) ||
+        /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host);
+    }
+
+    function buildUrl() {
+      var raw = urlIn.value.trim();
+      if (!raw) return { error: 'Type your public website address to make the QR code.' };
+      if (!/^https?:\/\//i.test(raw)) raw = 'https://' + raw;
+      var u;
+      try { u = new URL(raw); } catch (e) { return { error: 'That does not look like a web address.' }; }
+      var parts = u.search.replace(/^\?/, '').split('&').filter(function (p) {
+        return p && !/^quiz(=|$)/.test(p) && !/^lang=/.test(p);
+      });
+      if (langIn.value) parts.push('lang=' + langIn.value);
+      /* always open the game at the site root, even if someone pasted poster.html or guide.html */
+      var path = u.pathname.replace(/[^\/]*\.html?$/i, '') || '/';
+      var out = u.protocol + '//' + u.host + path + (parts.length ? '?' + parts.join('&') : '') + u.hash;
+      return { url: out, local: isLocal(u.hostname), host: u.host };
+    }
+
+    function render() {
+      var r = buildUrl(), warn = $('warn');
+      warn.hidden = true;
+      if (r.error) {
+        $('finalUrl').textContent = '(none yet)';
+        $('qr').innerHTML = '';
+        $('pUrl').textContent = '';
+        warn.textContent = r.error; warn.hidden = false;
+        return;
+      }
+      try {
+        /* EGQR.svg builds the markup only from module coordinates and the fixed colors below */
+        $('qr').innerHTML = window.EGQR.svg(r.url, { margin: 4, dark: '#131418', light: '#ffffff', label: 'QR code for ' + r.url });
+      } catch (e) {
+        $('qr').innerHTML = '';
+        warn.textContent = e.message; warn.hidden = false;
+        return;
+      }
+      $('finalUrl').textContent = r.url;
+      $('pUrl').textContent = r.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+      if (r.local) {
+        warn.textContent = 'This address only works on this computer or Wi-Fi. Visitors’ phones cannot open it. Use your public link after you put the site online.';
+        warn.hidden = false;
+      }
+      var state = { url: urlIn.value.trim(), lang: langIn.value };
+      try { localStorage.setItem('eg.poster', JSON.stringify(state)); } catch (e) { /* fine */ }
+      var p = new URLSearchParams();
+      if (state.url) p.set('url', state.url);
+      if (state.lang) p.set('lang', state.lang);
+      history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+    }
+
+    /* shrink the poster on small screens so the whole sheet is visible */
+    function fit() {
+      var wrap = $('fit'), poster = $('poster');
+      var avail = document.documentElement.clientWidth - 32, w = poster.offsetWidth, h = poster.offsetHeight;
+      var scale = Math.min(1, avail / w);
+      wrap.style.transform = scale < 1 ? 'scale(' + scale + ')' : '';
+      wrap.style.height = scale < 1 ? (h * scale) + 'px' : '';
+    }
+
+    urlIn.addEventListener('input', render);
+    langIn.addEventListener('change', render);
+    $('print').addEventListener('click', function () { window.print(); });
+    window.addEventListener('resize', fit);
+    render();
+    fit();
+  })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Egypt, beyond the pyramids</title>
+  <meta name="description" content="A five-minute guide to everyday Egypt from the Egyptian students at the festival, with a quick quiz and a gift.">
+  <meta name="theme-color" content="#F2F1EC" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0F1013" media="(prefers-color-scheme: dark)">
+  <meta property="og:title" content="Egypt, beyond the pyramids">
+  <meta property="og:description" content="Food, slang, music and jokes from the Egypt we grew up with. Take the quiz and win a gift at our booth.">
+  <meta property="og:image" content="https://geno543.github.io/egypt-booth/assets/img/hero-fanous.jpg">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip" href="#main" data-i18n="skip">Skip to content</a>
+
+  <header class="top" id="top">
+    <div class="wrap top__in">
+      <a class="brand" href="#main" aria-label="Egypt">
+        <span class="brand__mark"><svg class="icon"><use href="#i-star"></use></svg></span>
+        <span class="brand__en">Egypt</span>
+        <span class="brand__ar ar" lang="ar">مصر</span>
+      </a>
+      <nav class="nav" aria-label="Sections">
+        <a href="#words" data-i18n="nav.words">Words</a>
+        <a href="#food" data-i18n="nav.food">Food</a>
+        <a href="#life" data-i18n="nav.life">Daily life</a>
+        <a href="#feasts" data-i18n="nav.feasts">Feasts</a>
+        <a href="#arts" data-i18n="nav.arts">Arts</a>
+        <a href="#places" data-i18n="nav.places">Places</a>
+      </nav>
+      <div class="top__actions">
+        <div class="lang" role="group" aria-label="Language / 语言">
+          <button type="button" data-lang="en" aria-pressed="true">EN</button>
+          <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+        </div>
+        <button type="button" class="btn btn--accent btn--sm" data-open-quiz data-i18n="cta.quiz">Take the quiz</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <div class="wrap hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow" id="eyebrow">International Culture Festival, Egypt booth</p>
+          <h1 class="hero__title" id="heroTitle" data-i18n-html="hero.title">Come for the pyramids.<br>Stay for the tea.</h1>
+          <p class="hero__sub" data-i18n="hero.sub">The Egypt we grew up with: food, slang, music and jokes. Explore for five minutes, then quiz for a gift.</p>
+          <div class="hero__ctas">
+            <button type="button" class="btn btn--accent btn--lg" data-open-quiz>
+              <span data-i18n="cta.quiz">Take the quiz</span>
+              <svg class="icon"><use href="#i-arrow"></use></svg>
+            </button>
+            <a class="btn btn--ghost btn--lg" href="#words" data-i18n="cta.explore">Explore first</a>
+          </div>
+        </div>
+        <figure class="hero__media">
+          <div class="hero__frame">
+            <img src="assets/img/hero-fanous.jpg" alt="" data-i18n-alt="hero.caption" width="1400" height="1750" fetchpriority="high" decoding="async">
+          </div>
+          <div class="seal" aria-hidden="true">
+            <svg class="seal__ring" viewBox="0 0 128 128">
+              <defs><path id="sealPath" d="M64 64m-49 0a49 49 0 1 1 98 0a49 49 0 1 1 -98 0"></path></defs>
+              <text><textPath href="#sealPath" id="sealText">Ahlan • Welcome • 欢迎 • Ahlan • Welcome • 欢迎 •</textPath></text>
+            </svg>
+            <span class="seal__ar ar" lang="ar">أهلاً</span>
+          </div>
+          <figcaption data-i18n="hero.caption">Ramadan lanterns for sale in Cairo.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- MARQUEE: everyday words -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track" id="marquee"></div>
+    </div>
+
+    <!-- WORDS -->
+    <section class="section" id="words" aria-labelledby="wordsTitle">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="wordsTitle" data-i18n="words.title">Nine words that get you through Cairo</h2>
+          <p data-i18n="words.intro">Thanks to our films, the whole Arab world understands Egyptian Arabic. Tap a word to learn it.</p>
+        </div>
+        <div class="words__grid" data-reveal style="--d:1">
+          <div class="words__stage" id="wordStage" aria-live="polite"></div>
+          <div class="words__list" id="wordList" role="tablist" aria-labelledby="wordsTitle"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOD -->
+    <section class="section" id="food" aria-labelledby="foodTitle" style="padding-top:0">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="foodTitle" data-i18n="food.title">A day of eating in Egypt</h2>
+          <p data-i18n="food.intro">Egyptians eat late, eat together, and always cook too much. Pick a time of day.</p>
+        </div>
+        <div class="food__tabs" id="foodTabs" role="tablist" aria-labelledby="foodTitle" data-reveal style="--d:1"></div>
+        <div class="food__panel" id="foodPanel" role="tabpanel" data-reveal style="--d:2"></div>
+      </div>
+    </section>
+
+    <!-- DAILY LIFE -->
+    <section class="section" id="life" aria-labelledby="lifeTitle" style="padding-top:0">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="lifeTitle" data-i18n="life.title">Life happens at the ahwa</h2>
+          <p data-i18n="life.intro">The ahwa is our street-corner coffee house, a bit like a Chinese teahouse.</p>
+        </div>
+        <div class="bento" id="bento"></div>
+      </div>
+    </section>
+
+    <!-- FEASTS (night block) -->
+    <section class="section night" id="feasts" aria-labelledby="feastsTitle">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="feastsTitle" data-i18n="feasts.title">A year of feasts</h2>
+          <p data-i18n="feasts.intro">Islamic feasts follow the moon, so Ramadan arrives about eleven days earlier every year.</p>
+        </div>
+        <div class="ramadan" id="ramadan"></div>
+        <p class="cal__label" data-i18n="feasts.calendar" data-reveal>Through the year</p>
+        <div class="cal" id="calendar"></div>
+      </div>
+    </section>
+
+    <!-- ARTS -->
+    <section class="section" id="arts" aria-labelledby="artsTitle">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="artsTitle" data-i18n="arts.title">Sound, screen and stitch</h2>
+          <p data-i18n="arts.intro">Before streaming, Cairo was where the Arab world got its songs and its films.</p>
+        </div>
+        <div class="strips" id="strips" data-reveal style="--d:1"></div>
+      </div>
+    </section>
+
+    <!-- PLACES -->
+    <section class="section" id="places" aria-labelledby="placesTitle" style="padding-top:0">
+      <div class="wrap">
+        <div class="head" data-reveal>
+          <h2 id="placesTitle" data-i18n="places.title">There is more than one Egypt</h2>
+          <p data-i18n="places.intro">About 95% of us live along the Nile.</p>
+        </div>
+        <div class="places__grid">
+          <div>
+            <div class="map" id="map" data-reveal></div>
+            <div class="chips" id="placeChips" role="group" aria-label="Choose a place"></div>
+          </div>
+          <article class="place" id="placeCard" aria-live="polite" data-reveal style="--d:1"></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ CTA -->
+    <section class="section" id="quiz" aria-labelledby="quizCtaTitle" style="padding-top:0">
+      <div class="wrap">
+        <div class="cta" data-reveal>
+          <div class="cta__copy">
+            <h2 id="quizCtaTitle" data-i18n-html="quizcta.title">Six questions.<br>Two minutes. One gift.</h2>
+            <p data-i18n="quizcta.body">Everyone who finishes gets a gift at our booth. Get all six right and you choose which one.</p>
+            <button type="button" class="btn btn--paper btn--lg" data-open-quiz>
+              <span data-i18n="cta.quiz">Take the quiz</span>
+              <svg class="icon"><use href="#i-arrow"></use></svg>
+            </button>
+            <p class="cta__note" data-i18n="quizcta.note">One gift per person, while they last.</p>
+          </div>
+          <div class="cta__preview" aria-hidden="true">
+            <div id="ticketPreview"></div>
+            <p class="cta__caption" data-i18n="quizcta.preview">Your gift ticket appears here</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div>
+          <div class="foot__brand">
+            <span class="ar" lang="ar">مصر</span>
+            <span class="tile tile--sm"><svg class="icon"><use href="#i-star"></use></svg></span>
+          </div>
+          <p class="foot__made" id="footMade">Made by the Egyptian students at the International Culture Festival.</p>
+          <p class="foot__say" data-i18n="footer.say">Come and say ahlan at our booth.</p>
+        </div>
+        <div class="foot__links">
+          <button type="button" class="btn btn--accent btn--sm" data-open-quiz data-i18n="cta.quiz">Take the quiz</button>
+          <a class="btn btn--ghost btn--sm" href="#top" data-i18n="footer.top">Back to top</a>
+        </div>
+      </div>
+      <details class="credits">
+        <summary><svg class="icon"><use href="#i-arrow"></use></svg><span data-i18n="footer.credits">Photo credits</span></summary>
+        <ul id="credits"></ul>
+      </details>
+    </div>
+  </footer>
+
+  <!-- QUIZ -->
+  <dialog class="quiz" id="quizDialog" aria-labelledby="quizLabel">
+    <div class="quiz__bar">
+      <p class="quiz__label" id="quizLabel" data-i18n="quiz.label">Egypt quiz</p>
+      <ol class="steps" id="quizSteps" aria-hidden="true"></ol>
+      <div class="lang" role="group" aria-label="Language / 语言">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
+      <button type="button" class="icon-btn" data-close-quiz aria-label="Close">
+        <svg class="icon"><use href="#i-close"></use></svg>
+      </button>
+    </div>
+    <div class="quiz__body" id="quizBody"></div>
+  </dialog>
+
+  <script src="assets/js/icons.js"></script>
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

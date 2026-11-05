@@ -1,0 +1,9 @@
+# editor and tool folders (not part of the website)
+.claude/
+.playwright-mcp/
+node_modules/
+
+# system files
+.DS_Store
+Thumbs.db
+desktop.ini
